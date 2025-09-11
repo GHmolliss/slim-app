@@ -5,13 +5,13 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./Docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./:/var/www/html
     depends_on:
       - php
   php:
     build:
-      context: "./Docker/php"
+      context: "./docker/php"
     container_name: "${PROJECT_NAME}-php"
     user: "${UID}:${GID}"
     volumes:
