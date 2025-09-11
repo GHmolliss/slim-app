@@ -1,0 +1,44 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: "${PROJECT_NAME}-nginx"
+    ports:
+      - "80:80"
+    volumes:
+      - ./Docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./:/var/www/html
+    depends_on:
+      - php
+  php:
+    build:
+      context: "./Docker/php"
+    container_name: "${PROJECT_NAME}-php"
+    user: "${UID}:${GID}"
+    volumes:
+      - ./:/var/www/html
+  mysql:
+    image: "mysql:${MYSQL_VERSION}"
+    container_name: "${PROJECT_NAME}-mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: "${PROJECT_NAME}-php-my-admin"
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+volumes:
+  db_data:
