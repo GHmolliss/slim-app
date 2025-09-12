@@ -7,6 +7,7 @@
 - Symfony Console
 
 ## Настройка
+### Файл .env
 Скопируйте файл .env.example, переименуйте в .env
 
 # Slim Framework 4 Skeleton Application
