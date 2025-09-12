@@ -27,6 +27,7 @@
         "doctrine/annotations": "^2.0",
         "doctrine/dbal": "^4.3",
         "doctrine/orm": "^3.5",
+        "firebase/php-jwt": "^6.11",
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
         "slim/psr7": "^1.5",
