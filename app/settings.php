@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Application\Settings\Settings;
 use App\Application\Settings\SettingsInterface;
+use App\Helpers\EnvHelper;
 use DI\ContainerBuilder;
 use Monolog\Logger;
 
@@ -13,7 +14,7 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         SettingsInterface::class => function () {
             return new Settings([
-                'displayErrorDetails' => true, // Should be set to false in production
+                'displayErrorDetails' => EnvHelper::isDev(), // Should be set to false in production
                 'logError'            => false,
                 'logErrorDetails'     => false,
                 'logger' => [

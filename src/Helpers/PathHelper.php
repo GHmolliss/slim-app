@@ -206,21 +206,21 @@ final class PathHelper
     //     return self::getPagesCoursesPath() . 'php' . DIRECTORY_SEPARATOR;
     // }
 
-    // /**
-    //  * Path /src/
-    //  */
-    // public static function getSrcPath(): string
-    // {
-    //     return self::getRootPath() . 'src' . DIRECTORY_SEPARATOR;
-    // }
+    /**
+     * Path /src/
+     */
+    public static function getSrcPath(): string
+    {
+        return self::getRootPath() . 'src' . DIRECTORY_SEPARATOR;
+    }
 
-    // /**
-    //  * Path /src/Entity/
-    //  */
-    // public static function getSrcEntityPath(): string
-    // {
-    //     return self::getSrcPath() . 'Entity' . DIRECTORY_SEPARATOR;
-    // }
+    /**
+     * Path /src/Entity/
+     */
+    public static function getSrcEntityPath(): string
+    {
+        return self::getSrcPath() . 'Entity' . DIRECTORY_SEPARATOR;
+    }
 
     // /**
     //  * Path /logs/

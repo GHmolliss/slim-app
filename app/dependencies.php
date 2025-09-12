@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Application\Settings\SettingsInterface;
 use App\Helpers\PathHelper;
 use DI\ContainerBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -33,6 +34,12 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         Twig::class => function () {
             return Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
+        },
+    ]);
+
+    $containerBuilder->addDefinitions([
+        EntityManagerInterface::class => function () {
+            return require __DIR__ . '/doctrine.php';
         },
     ]);
 };
