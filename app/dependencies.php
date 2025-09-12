@@ -39,7 +39,9 @@ return function (ContainerBuilder $containerBuilder) {
 
     $containerBuilder->addDefinitions([
         EntityManagerInterface::class => function () {
-            return require __DIR__ . '/doctrine.php';
+            $entityManager = require __DIR__ . '/doctrine.php';
+
+            return $entityManager();
         },
     ]);
 };

@@ -6,9 +6,10 @@ use App\Helpers\EnvHelper;
 use App\Helpers\PathHelper;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
 
-return function () {
+return function (): EntityManagerInterface {
     $paths = [PathHelper::getSrcEntityPath()];
     $isDevMode = EnvHelper::isDev();
 
