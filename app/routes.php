@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use Slim\Views\Twig;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -16,8 +17,12 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
+        $twig = $this->get(Twig::class);
+
+        return $twig->render($response, 'home.twig', [
+            'title' => 'Главная',
+            'name' => 'Name'
+        ]);
     });
 
     $app->group('/users', function (Group $group) {
