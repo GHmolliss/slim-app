@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
 use App\Helpers\PathHelper;
+use App\Helpers\SessionHelper;
 use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\StreamHandler;
@@ -33,7 +34,10 @@ return function (ContainerBuilder $containerBuilder) {
 
     $containerBuilder->addDefinitions([
         Twig::class => function () {
-            return Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
+            $twig = Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
+            $twig->getEnvironment()->addGlobal('csrf_token', SessionHelper::getCsrfToken());
+
+            return $twig;
         },
     ]);
 
