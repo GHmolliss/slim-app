@@ -2,28 +2,36 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Domain\ValueObjects;
 
+use LogicException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Validation;
 
-abstract class ValidateValueObject
+abstract class ValidateMultipleValuesObject
 {
+    abstract protected function getConstraintsInput(array $params): array;
     abstract protected function getConstraints(): Collection;
 
-    public function __construct(
-        mixed $value,
-        protected string $key,
-    ) {
-        $this->validate($value);
+    public function __construct(array $params)
+    {
+        $this->validate($params);
+
+        foreach ($params as $key => $value) {
+            if (!property_exists($this, $key)) {
+                throw new LogicException("Property '{$key}' does not exist in class " . get_class($this));
+            }
+
+            $this->{$key} = $value;
+        }
     }
 
-    private function validate(mixed $value): void
+    protected function validate(array $params): void
     {
         $validator = Validation::createValidator();
 
-        $input = [$this->key => $value];
+        $input = $this->getConstraintsInput($params);
         $constraints = $this->getConstraints();
 
         $violationList = $validator->validate($input, $constraints);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObjects;
 
-use App\Domain\ValidateValueObject;
 use App\Helpers\ConstraintsHelper;
 use Symfony\Component\Validator\Constraints\Collection;
 
