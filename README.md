@@ -10,6 +10,15 @@
 ### Файл .env
 Скопируйте файл .env.example, переименуйте в .env
 
+### Docker Compose
+```bash
+cd [app-name]
+docker compose up -d
+```
+
+### Локальный запуск в браузере
+http://localhost/
+
 # Slim Framework 4 Skeleton Application
 
 [![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
