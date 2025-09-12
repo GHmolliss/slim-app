@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\ValueObjects;
+
+use App\Domain\ValidateValueObject;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Url;
+
+final class UrlPath extends ValidateValueObject
+{
+    protected string $value;
+
+    public function __construct(
+        mixed $value,
+        protected string $key,
+    ) {
+        parent::__construct($key, $value);
+
+        $this->value = $value;
+    }
+
+    public function get(): string
+    {
+        return $this->value;
+    }
+
+    protected function getConstraints(): Collection
+    {
+        return new Collection([
+            $this->key => [
+                new NotBlank(),
+                new Type('string'),
+                new Url(),
+            ],
+        ]);
+    }
+}
