@@ -19,7 +19,7 @@ return function (App $app) {
     $app->get('/', function (Request $request, Response $response) {
         $twig = $this->get(Twig::class);
 
-        return $twig->render($response, 'home.twig', [
+        return $twig->render($response, 'base/home.twig', [
             'title' => 'Главная',
             'name' => 'Name'
         ]);
