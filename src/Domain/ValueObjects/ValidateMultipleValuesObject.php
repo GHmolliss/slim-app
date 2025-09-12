@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObjects;
 
+use App\Domain\DomainException\DomainException;
+use Fig\Http\Message\StatusCodeInterface;
 use LogicException;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Validation;
 
@@ -45,7 +46,7 @@ abstract class ValidateMultipleValuesObject
         throw new DomainException(
             "{$violation->getPropertyPath()}: {$violation->getMessage()}",
             0,
-            Response::HTTP_BAD_REQUEST,
+            StatusCodeInterface::STATUS_BAD_REQUEST,
         );
     }
 }
