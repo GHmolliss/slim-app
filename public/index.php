@@ -51,6 +51,10 @@ $middleware($app);
 $routes = require __DIR__ . '/../app/routes.php';
 $routes($app);
 
+// Register API routes
+$routes = require __DIR__ . '/../app/routes_api.php';
+$routes($app);
+
 /** @var SettingsInterface $settings */
 $settings = $container->get(SettingsInterface::class);
 
