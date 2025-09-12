@@ -6,7 +6,7 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
-    $app->group('/api', function (Group $group) {
-        
+    $app->group('/api/auth', function (Group $group) {
+        $group->post('/token', \App\Controllers\AuthController::class . ':login');
     });
 };
