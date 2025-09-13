@@ -4,37 +4,31 @@ declare(strict_types=1);
 
 namespace App\Application\Actions\Auth;
 
-use Firebase\JWT\JWT;
+use App\Helpers\JwtHelper;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class AuthTokenAction extends AuthAction
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function action(): Response
     {
         $input = $this->getFormData();
+        $email = $input['email'] ?? '';
+        $password = $input['password'] ?? '';
 
-        $clientId = (int) $input['clientId'] ?? null;
-        $clientSecret = $input['clientSecret'] ?? null;
+        // Пример простой проверки (замените на свою логику)
+        if ($email === 'admin' && $password === 'password') {
+            $payload = [
+                'sub' => $email,
+                // можно добавить другие данные
+            ];
+            $token = JwtHelper::generateToken($payload);
 
-        $this->logger->info("Client of id `{$clientId}` was viewed.");
+            $responseData = ['token' => $token];
+            $response = $this->respondWithData($responseData);
+            return $response->withHeader('Content-Type', 'application/json');
+        }
 
-        $secretKey = $_ENV['JWT_SECRET'] ?: null;
-
-        $payload = [
-            'iss' => $clientId,
-            'aud' => 'service-b',
-            'iat' => time(),
-            'exp' => time() + 300,
-            'role' => 'service'
-        ];
-
-        $jwt = JWT::encode($payload, $secretKey, 'HS256');
-
-        return $this->respondWithData([
-            'token' => $jwt,
-        ]);
+        return $this->respondWithData(['error' => 'Invalid credentials'], 401)
+            ->withHeader('Content-Type', 'application/json');
     }
 }

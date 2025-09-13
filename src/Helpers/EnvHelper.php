@@ -51,6 +51,11 @@ final class EnvHelper
     //     return self::getByKey('APP_NAME');
     // }
 
+    public static function getJwtSecret(): string
+    {
+        return self::getByKey('JWT_SECRET');
+    }
+
     // public static function getTelegramChannelId(): string
     // {
     //     return $_ENV['TELEGRAM_CHANNEL_ID'];

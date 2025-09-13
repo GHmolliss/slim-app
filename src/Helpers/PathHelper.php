@@ -70,13 +70,13 @@ final class PathHelper
         return realpath(__DIR__ . '/../../') . DIRECTORY_SEPARATOR;
     }
 
-    // /**
-    //  * Path /vendor/
-    //  */
-    // public static function getVendorPath(): string
-    // {
-    //     return self::getRootPath() . 'vendor' . DIRECTORY_SEPARATOR;
-    // }
+    /**
+     * Path /vendor/
+     */
+    public static function getVendorPath(): string
+    {
+        return self::getRootPath() . 'vendor' . DIRECTORY_SEPARATOR;
+    }
 
     // /**
     //  * Path /app/

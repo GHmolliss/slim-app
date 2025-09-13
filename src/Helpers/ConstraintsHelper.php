@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -21,40 +20,6 @@ class ConstraintsHelper
             new NotBlank(),
             new Type('int'),
             new Positive(),
-        ];
-    }
-
-    public static function programmingLanguage(): array
-    {
-        return [
-            new NotBlank(),
-            new Type('string'),
-            new Choice([
-                'php',
-            ]),
-        ];
-    }
-
-    public static function courseName(): array
-    {
-        return [
-            new NotBlank(),
-            new Type('string'),
-            new Choice([
-                'basic',
-            ]),
-        ];
-    }
-
-    public static function lessonName(): array
-    {
-        return [
-            new NotBlank(),
-            new Type('string'),
-            new Length([
-                'min' => 3,
-                'max' => 15,
-            ]),
         ];
     }
 
