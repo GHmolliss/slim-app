@@ -23,9 +23,7 @@ class AuthTokenAction extends AuthAction
             ];
             $token = JwtHelper::generateToken($payload);
 
-            $responseData = ['token' => $token];
-            $response = $this->respondWithData($responseData);
-            return $response->withHeader('Content-Type', 'application/json');
+            return $this->respondWithData(['token' => $token]);
         }
 
         return $this->respondWithData(['error' => 'Invalid credentials'], 401)
