@@ -14,6 +14,8 @@
 ```bash
 cd [app-name]
 docker compose up -d
+docker compose exec php bash
+php composer.phar install
 ```
 
 ### Локальный запуск в браузере
