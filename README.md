@@ -19,7 +19,8 @@ php composer.phar install
 ```
 
 ### Локальный запуск в браузере
-http://localhost/
+http://localhost/ - сайт
+http://localhost:8080/index.php - phpMyAdmin
 
 # Slim Framework 4 Skeleton Application
 
