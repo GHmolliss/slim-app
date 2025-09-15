@@ -1,13 +1,99 @@
-DROP TABLE IF EXISTS `refresh_tokens`;
+DROP TABLE IF EXISTS `user_contacts`;
 
 
 
-CREATE TABLE `refresh_tokens` (
-    `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
-    `user_id` int UNSIGNED NOT NULL COMMENT 'User Id',
-    `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Token',
-    `expires_at` timestamp NULL DEFAULT NULL COMMENT 'Expiration Date',
+DROP TABLE IF EXISTS `users`;
+
+
+
+DROP TABLE IF EXISTS `user_roles`;
+
+
+
+CREATE TABLE `user_roles` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
+    `name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Name',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи - Роли';
+
+
+
+INSERT INTO
+    `user_roles` (`id`, `name`)
+VALUES
+    (1, 'admin'),
+    (2, 'user');
+
+
+
+CREATE TABLE `users` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
+    `role_id` int(10) UNSIGNED NOT NULL COMMENT 'Role Id',
+    `first_name` varchar(20) NOT NULL COMMENT 'Фамилия',
+    `last_name` varchar(20) NOT NULL COMMENT 'Имя',
+    `middle_name` varchar(20) DEFAULT NULL COMMENT 'Отчество',
+    `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Email',
+    `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Password',
+    `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Token',
+    `active_email` datetime DEFAULT NULL COMMENT 'Active email',
+    `active_password` datetime DEFAULT NULL COMMENT 'Active password',
+    `created` datetime NOT NULL COMMENT 'Дата создания',
+    `updated` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`),
+    UNIQUE KEY `ukEmail` (`email`),
     UNIQUE KEY `ukToken` (`token`),
-    UNIQUE KEY `ukUserId` (`user_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    KEY `ixRoleId` (`role_id`),
+    KEY `ixActiveEmail` (`active_email`) USING BTREE,
+    KEY `ixActivePassword` (`active_password`) USING BTREE,
+    CONSTRAINT `fkUserRole` FOREIGN KEY (`role_id`) REFERENCES `user_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи';
+
+
+
+INSERT INTO
+    `users` (
+        `id`,
+        `role_id`,
+        `first_name`,
+        `last_name`,
+        `middle_name`,
+        `email`,
+        `password`,
+        `token`,
+        `active_email`,
+        `active_password`,
+        `created`,
+        `updated`
+    )
+VALUES
+    (
+        1,
+        2,
+        'Иванов',
+        'Иван',
+        'Иванович',
+        'user@example.com',
+        '$2y$12$E7YZv8u8r3lAfIfR6PvIV.RQFyljrf0YFotBLNymIcMC1XnBshanq',
+        NULL,
+        NULL,
+        NULL,
+        NOW(),
+        NOW()
+    );
+
+
+
+CREATE TABLE `user_contacts` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
+    `user_id` int(10) UNSIGNED NOT NULL COMMENT 'User Id',
+    `type_id` int(10) UNSIGNED NOT NULL COMMENT 'Type Id',
+    `value` varchar(255) NOT NULL COMMENT 'Значение',
+    `created` datetime NOT NULL COMMENT 'Дата создания',
+    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `UserIdAndTypeIdAndValue` (`user_id`, `type_id`, `value`) USING BTREE,
+    KEY `ixTypeId` (`type_id`),
+    KEY `ixUserId` (`user_id`),
+    KEY `ixValue` (`value`),
+    CONSTRAINT `fkUserContact` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи - Контакты';

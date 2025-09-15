@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Auth\Login;
+namespace App\Interface\API\Auth\Login;
 
 use App\Interface\API\ApiResponseDto;
 
-final class LoginResponseDto extends ApiResponseDto
+final class ApiLoginResponseDto extends ApiResponseDto
 {
     public function __construct(
         private string $token,

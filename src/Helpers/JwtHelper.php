@@ -10,14 +10,13 @@ use InvalidArgumentException;
 
 class JwtHelper
 {
-    private static $secret = EnvHelper::getJwtSecret();
     private static $algo = 'HS256';
 
     public static function generateToken(array $payload, int $exp = 3600): string
     {
         $payload['exp'] = time() + $exp;
 
-        return JWT::encode($payload, self::$secret, self::$algo);
+        return JWT::encode($payload, EnvHelper::getJwtSecret(), self::$algo);
     }
 
     public static function getBearerToken(string $authHeader): string
@@ -41,7 +40,7 @@ class JwtHelper
 
     public static function getPayloadByToken(string $token): array
     {
-        $decoded = JWT::decode($token, new Key(self::$secret, self::$algo));
+        $decoded = JWT::decode($token, new Key(EnvHelper::getJwtSecret(), self::$algo));
 
         return (array) $decoded;
     }

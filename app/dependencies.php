@@ -3,8 +3,11 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Domain\User\Auth\UserAuthFacade;
 use App\Helpers\PathHelper;
 use App\Helpers\SessionHelper;
+use App\Interface\API\Auth\Login\ApiLoginInterface;
+use App\Interface\API\Auth\Login\ApiLoginValidator;
 use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\StreamHandler;
@@ -46,6 +49,23 @@ return function (ContainerBuilder $containerBuilder) {
             $entityManager = require __DIR__ . '/doctrine.php';
 
             return $entityManager();
+        },
+    ]);
+
+    $containerBuilder->addDefinitions([
+        UserAuthFacade::class => function (ContainerInterface $c) {
+            return new UserAuthFacade(
+                $c->get(EntityManagerInterface::class),
+            );
+        },
+    ]);
+
+    $containerBuilder->addDefinitions([
+        ApiLoginInterface::class => function (ContainerInterface $c) {
+            return new ApiLoginInterface(
+                new ApiLoginValidator(),
+                $c->get(UserAuthFacade::class),
+            );
         },
     ]);
 };

@@ -18,6 +18,8 @@ docker compose exec php bash
 php composer.phar install
 ```
 
+`8GVbh&6I7silgDXN` - Пароль для пользователя
+
 ### Локальный запуск в браузере
 http://localhost/ - сайт  
 http://localhost:8080/index.php - phpMyAdmin  

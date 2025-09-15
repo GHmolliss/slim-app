@@ -37,10 +37,7 @@ class ConstraintsHelper
         return [
             new NotBlank(),
             new Type('string'),
-            new Length([
-                'min' => 2,
-                'max' => 20,
-            ]),
+            new Length(min: 2, max: 20),
             new Regex("/^([a-zа-яё][a-zа-яё -]*)+$/ui"),
         ];
     }
@@ -50,13 +47,8 @@ class ConstraintsHelper
         return [
             new NotBlank(),
             new Type('string'),
-            new Length([
-                'min' => 5,
-                'max' => 50,
-            ]),
-            new Email([
-                'mode' => 'html5-allow-no-tld',
-            ]),
+            new Length(min: 5, max: 50),
+            new Email(mode: 'html5-allow-no-tld'),
         ];
     }
 
@@ -65,13 +57,8 @@ class ConstraintsHelper
         return [
             new NotBlank(),
             new Type('string'),
-            new Length([
-                'min' => 5,
-                'max' => 50,
-            ]),
-            new PasswordStrength([
-                'minScore' => PasswordStrength::STRENGTH_WEAK,
-            ]),
+            new Length(min: 5, max: 50),
+            new PasswordStrength(minScore: PasswordStrength::STRENGTH_WEAK),
         ];
     }
 }

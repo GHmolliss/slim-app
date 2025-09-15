@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Auth\Login;
+namespace App\Interface\API\Auth\Login;
 
 use App\Interface\API\ApiRequestDto;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-final class LoginRequestDto extends ApiRequestDto
+final class ApiLoginRequestDto extends ApiRequestDto
 {
     public const EMAIL = 'email';
     public const PASSWORD = 'password';
