@@ -10,8 +10,10 @@ use App\Domain\Telegram\TelegramFacade;
 use App\Domain\Telegram\ValueObjects\Message;
 use App\Domain\User\Auth\Exceptions\UserAuthManagerException;
 use App\Domain\User\Group\UserGroupFacade;
+use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\NumberPositive;
 use App\Domain\ValueObjects\Token;
+use App\Domain\ValueObjects\UserPassword;
 use App\Entity\User;
 use App\Entity\UserContact;
 use App\Entity\UserProgress;
@@ -122,19 +124,16 @@ final class UserAuthManager
     // }
 
     public function login(
-        string $email,
-        string $password,
+        Email $email,
+        UserPassword $password,
     ): string {
-        $email = StrHelper::prepareEmail($email);
-        $password = StrHelper::preparePassword($password);
-
-        $user = $this->userRepository->findOneBy(['email' => $email]);
+        $user = $this->userRepository->findOneBy(['email' => $email->get()]);
 
         if ($user === null) {
             throw UserAuthManagerException::loginError();
         }
 
-        if (!password_verify($password, $user->getPassword())) {
+        if (!password_verify($password->get(), $user->getPassword())) {
             throw UserAuthManagerException::loginError();
         }
 

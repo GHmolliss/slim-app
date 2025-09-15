@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Interface\API\Auth\Login;
 
 use App\Domain\User\Auth\UserAuthFacade;
+use App\Domain\ValueObjects\Email;
+use App\Domain\ValueObjects\UserPassword;
 use App\Interface\API\ApiInterface;
 use App\Interface\API\ApiRequestDto;
 use App\Interface\API\ApiResponseDto;
@@ -21,8 +23,8 @@ final class ApiLoginInterface implements ApiInterface
         $this->validator->validateDto($requestDto);
 
         $token = $this->userAuthFacade->login(
-            $requestDto->getByKey(ApiLoginRequestDto::EMAIL),
-            $requestDto->getByKey(ApiLoginRequestDto::PASSWORD),
+            new Email($requestDto->getByKey(ApiLoginRequestDto::EMAIL)),
+            new UserPassword($requestDto->getByKey(ApiLoginRequestDto::PASSWORD)),
         );
 
         return new ApiLoginResponseDto($token);

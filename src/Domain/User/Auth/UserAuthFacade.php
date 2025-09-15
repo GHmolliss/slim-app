@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Auth;
 
+use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\Token;
+use App\Domain\ValueObjects\UserPassword;
 use App\Entity\User;
 
 final class UserAuthFacade extends UserAuthBuilder
@@ -33,8 +35,8 @@ final class UserAuthFacade extends UserAuthBuilder
     // }
 
     public function login(
-        string $email,
-        string $password,
+        Email $email,
+        UserPassword $password,
     ): string {
         return $this->buildUserAuthManager()->login(
             $email,
