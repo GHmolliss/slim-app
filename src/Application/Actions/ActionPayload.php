@@ -8,6 +8,7 @@ use JsonSerializable;
 
 class ActionPayload implements JsonSerializable
 {
+    private bool $status;
     private int $statusCode;
 
     /**
@@ -25,6 +26,8 @@ class ActionPayload implements JsonSerializable
         $this->statusCode = $statusCode;
         $this->data = $data;
         $this->error = $error;
+
+        $this->setStatus();
     }
 
     public function getStatusCode(): int
@@ -49,7 +52,7 @@ class ActionPayload implements JsonSerializable
     public function jsonSerialize(): array
     {
         $payload = [
-            'statusCode' => $this->statusCode,
+            'status' => $this->status,
         ];
 
         if ($this->data !== null) {
@@ -59,5 +62,10 @@ class ActionPayload implements JsonSerializable
         }
 
         return $payload;
+    }
+
+    private function setStatus(): void
+    {
+        $this->status = ($this->statusCode >= 200 && $this->statusCode < 300);
     }
 }
