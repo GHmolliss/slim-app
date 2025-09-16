@@ -16,7 +16,7 @@ final class UserPassword extends ValidateValueObject
         mixed $value,
         protected string $key = 'userPassword',
     ) {
-        parent::__construct($key, $value);
+        parent::__construct($value, $key);
 
         $this->value = StrHelper::preparePassword($value);
     }

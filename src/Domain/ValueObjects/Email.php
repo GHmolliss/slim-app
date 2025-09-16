@@ -16,7 +16,7 @@ final class Email extends ValidateValueObject
         mixed $value,
         protected string $key = 'email',
     ) {
-        parent::__construct($key, $value);
+        parent::__construct($value, $key);
 
         $this->value = StrHelper::prepareEmail($value);
     }

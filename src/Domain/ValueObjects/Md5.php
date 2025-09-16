@@ -16,7 +16,7 @@ class Md5 extends ValidateValueObject
         mixed $value,
         protected string $key,
     ) {
-        parent::__construct($key, $value);
+        parent::__construct($value, $key);
 
         $this->value = $value;
     }

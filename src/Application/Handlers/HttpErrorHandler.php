@@ -6,6 +6,7 @@ namespace App\Application\Handlers;
 
 use App\Application\Actions\ActionError;
 use App\Application\Actions\ActionPayload;
+use App\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpException;
@@ -26,6 +27,48 @@ class HttpErrorHandler extends SlimErrorHandler
     {
         $exception = $this->exception;
         $statusCode = 500;
+
+        if ($this->isApiRequest()) {
+            $payload = [
+                'status' => false,
+                'errors' => [],
+            ];
+
+            if ($exception instanceof Exception) {
+                $statusCode = $exception->getStatusCode();
+
+                foreach ($exception->getErrors() as $error) {
+                    $payload['errors'][] = [
+                        'id' => $error->id,
+                        'code' => $error->code,
+                        'message' => $error->message,
+                        'propertyPath' => $error->propertyPath,
+                    ];
+                }
+
+                if (empty($payload['errors'])) {
+                    $payload['errors'][] = [
+                        'id' => $exception->getId(),
+                        'code' => $exception->getCode(),
+                        'message' => $exception->getMessage(),
+                    ];
+                }
+
+                if ($this->displayErrorDetails) {
+                    $payload['file'] = $exception->getFile();
+                    $payload['line'] = $exception->getLine();
+                    $payload['trace'] = $exception->getTrace();
+                }
+            }
+
+            $encodedPayload = json_encode($payload, JSON_UNESCAPED_UNICODE);
+
+            $response = $this->responseFactory->createResponse($statusCode);
+            $response->getBody()->write($encodedPayload);
+
+            return $response->withHeader('Content-Type', 'application/json');
+        }
+
         $error = new ActionError(
             ActionError::SERVER_ERROR,
             'An internal error has occurred while processing your request.'
@@ -65,5 +108,16 @@ class HttpErrorHandler extends SlimErrorHandler
         $response->getBody()->write($encodedPayload);
 
         return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    private function isApiRequest(): bool
+    {
+        $uri = $this->request->getUri()->getPath();
+
+        if (strpos($uri, '/api/') === 0) {
+            return true;
+        }
+
+        return false;
     }
 }

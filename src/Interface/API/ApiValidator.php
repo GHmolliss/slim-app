@@ -8,7 +8,6 @@ use App\Error;
 use App\Exception;
 use App\Helpers\PathHelper;
 use Fig\Http\Message\StatusCodeInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\Constraints\Collection;
