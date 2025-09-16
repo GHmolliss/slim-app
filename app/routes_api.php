@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Application\Actions\Auth\AuthLoginAction;
+use App\Application\Actions\API\Auth\AuthLoginAction;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\Auth;
+namespace App\Application\Actions\API\Auth;
 
 use App\Interface\API\Auth\Login\ApiLoginRequestDto;
 use Psr\Http\Message\ResponseInterface as Response;

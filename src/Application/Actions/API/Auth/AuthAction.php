@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\Auth;
+namespace App\Application\Actions\API\Auth;
 
-use App\Application\Actions\Action;
+use App\Application\Actions\API\Action;
 use App\Interface\API\Auth\Login\ApiLoginInterface;
 use Psr\Log\LoggerInterface;
 

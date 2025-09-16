@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Actions\User;
+namespace App\Application\Actions\API\User;
 
-use App\Application\Actions\Action;
+use App\Application\Actions\API\Action;
 use App\Entity\User;
 use App\Repository\Doctrine\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;

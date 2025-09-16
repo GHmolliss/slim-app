@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Application\Actions;
 
-use App\Application\Actions\Action;
-use App\Application\Actions\ActionPayload;
+use App\Application\Actions\API\Action;
+use App\Application\Actions\API\ActionPayload;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
