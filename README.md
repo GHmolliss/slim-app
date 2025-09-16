@@ -1,14 +1,15 @@
-# Slim-Template
-## Описание
-Готовое решение для быстрого старта проекта.  
-Установленны и настроены зависимости:
+# Slim-App
+## Description
+A ready-made solution for a quick project start.  
+Installed and configured:
 - Symfony Twig
 - Symfony Doctrine
 - Symfony Console
+- API
 
-## Настройка
-### Файл .env
-Скопируйте файл .env.example, переименуйте в .env
+## Setup
+### .env File
+Copy the .env.example file and rename it to .env
 
 ### Docker Compose
 ```bash
@@ -18,10 +19,10 @@ docker compose exec php bash
 php composer.phar install
 ```
 
-`8GVbh&6I7silgDXN` - Пароль для пользователя
+`8GVbh&6I7silgDXN` - User password
 
-### Локальный запуск в браузере
-http://localhost/ - сайт  
+### Local launch in browser
+http://localhost/ - website  
 http://localhost:8080/index.php - phpMyAdmin  
 
 # Slim Framework 4 Skeleton Application
