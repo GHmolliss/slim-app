@@ -127,46 +127,6 @@ final class PathHelper
     // }
 
     // /**
-    //  * Path /app/views/web/_includes/card_course.php
-    //  */
-    // public static function getViewsWebIndexIncludesCardCoursePath(): string
-    // {
-    //     return self::getViewsWebIndexIncludesPath() . 'card_course.php';
-    // }
-
-    // /**
-    //  * Path /app/views/web/_includes/card_lesson.php
-    //  */
-    // public static function getViewsWebIndexIncludesCardLessonPath(): string
-    // {
-    //     return self::getViewsWebIndexIncludesPath() . 'card_lesson.php';
-    // }
-
-    // /**
-    //  * Path /app/views/web/auth/
-    //  */
-    // public static function getViewsWebIndexAuthPath(): string
-    // {
-    //     return self::getViewsWebIndexPath() . 'auth' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /app/views/web/profile/
-    //  */
-    // public static function getViewsWebIndexProfilePath(): string
-    // {
-    //     return self::getViewsWebIndexPath() . 'profile' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /app/views/web/courses/
-    //  */
-    // public static function getViewsWebIndexCoursesPath(): string
-    // {
-    //     return self::getViewsWebIndexPath() . 'courses' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
     //  * Path /app/views/mail/
     //  */
     // public static function getViewsMailPath(): string
@@ -180,30 +140,6 @@ final class PathHelper
     // public static function getViewsMailIndexPath(): string
     // {
     //     return self::getViewsMailPath() . 'index' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /app/pages/
-    //  */
-    // public static function getPagesPath(): string
-    // {
-    //     return self::getAppPath() . 'pages' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /app/pages/courses/
-    //  */
-    // public static function getPagesCoursesPath(): string
-    // {
-    //     return self::getPagesPath() . 'courses' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /app/pages/courses/php/
-    //  */
-    // public static function getPagesCoursesPhpPath(): string
-    // {
-    //     return self::getPagesCoursesPath() . 'php' . DIRECTORY_SEPARATOR;
     // }
 
     /**
@@ -236,14 +172,6 @@ final class PathHelper
     // public static function getLogsAppPath(): string
     // {
     //     return self::getLogsPath() . 'app' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path /logs/code/
-    //  */
-    // public static function getLogsCodePath(): string
-    // {
-    //     return self::getLogsPath() . 'code' . DIRECTORY_SEPARATOR;
     // }
 
     /**
