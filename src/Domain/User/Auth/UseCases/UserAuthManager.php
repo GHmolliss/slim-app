@@ -13,6 +13,7 @@ use App\Domain\User\Group\UserGroupFacade;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\NumberPositive;
 use App\Domain\ValueObjects\Token;
+use App\Domain\ValueObjects\UserLastName;
 use App\Domain\ValueObjects\UserPassword;
 use App\Entity\User;
 use App\Entity\UserContact;
@@ -68,60 +69,60 @@ final class UserAuthManager
         return $this->userRepository->findAuth($token);
     }
 
-    // public function addNewUser(
-    //     string $firstName,
-    //     string $email,
-    //     string $password,
-    // ): void {
-    //     $email = StrHelper::prepareEmail($email);
-    //     $password = StrHelper::preparePassword($password);
-    //     $firstName = StrHelper::prepareFirstName($firstName);
+    public function register(
+        UserLastName $lastName,
+        Email $email,
+        UserPassword $password,
+    ): NumberPositive {
+        // $group = $this->userGroupFacade->getUser();
 
-    //     $group = $this->userGroupFacade->getUser();
+        // $user = $this->userRepository->findOneBy(['email' => $email]);
 
-    //     $user = $this->userRepository->findOneBy(['email' => $email]);
+        // if ($user) {
+        //     if ($user->getActiveEmail() !== null) {
+        //         throw UserAuthManagerException::emailNotActive($user->getActiveEmail());
+        //     }
 
-    //     if ($user) {
-    //         if ($user->getActiveEmail() !== null) {
-    //             throw UserAuthManagerException::emailNotActive($user->getActiveEmail());
-    //         }
+        //     throw UserAuthManagerException::emailDuplicate();
+        // }
 
-    //         throw UserAuthManagerException::emailDuplicate();
-    //     }
+        // $user = User::create(
+        //     $group,
+        //     $lastName,
+        //     $email,
+        //     $password,
+        // );
 
-    //     $user = User::create(
-    //         $group,
-    //         $firstName,
-    //         $email,
-    //         $password,
-    //     );
+        // $userProgress = new UserProgress($user);
 
-    //     $userProgress = new UserProgress($user);
+        // $this->entityManager->persist($user);
+        // $this->entityManager->persist($userProgress);
+        // $this->entityManager->flush();
 
-    //     $this->entityManager->persist($user);
-    //     $this->entityManager->persist($userProgress);
-    //     $this->entityManager->flush();
+        // $token = HashHelper::userTokenEncode((string) $user->getId());
+        // $user->setToken($token);
 
-    //     $token = HashHelper::userTokenEncode((string) $user->getId());
-    //     $user->setToken($token);
+        // $contact = new UserContact(
+        //     $user,
+        //     UserContact::TYPE_EMAIL_ID,
+        //     $email,
+        // );
 
-    //     $contact = new UserContact(
-    //         $user,
-    //         UserContact::TYPE_EMAIL_ID,
-    //         $email,
-    //     );
+        // $this->entityManager->persist($contact);
+        // $this->entityManager->flush();
 
-    //     $this->entityManager->persist($contact);
-    //     $this->entityManager->flush();
+        // $this->mailTaskFacade->userRegister(
+        //     new NumberPositive('userId', $user->getId()),
+        // );
 
-    //     $this->mailTaskFacade->userRegister(
-    //         new NumberPositive('userId', $user->getId()),
-    //     );
+        // $this->telegramFacade->sendAdminUserAdminMessage(
+        //     new Message('message', "[UserAdd]: id={$user->getId()} name={$user->getFirstName()} email={$user->getEmail()}"),
+        // );
 
-    //     $this->telegramFacade->sendAdminUserAdminMessage(
-    //         new Message('message', "[UserAdd]: id={$user->getId()} name={$user->getFirstName()} email={$user->getEmail()}"),
-    //     );
-    // }
+        $userId = new NumberPositive(1, 'userId');
+
+        return $userId;
+    }
 
     public function login(
         Email $email,

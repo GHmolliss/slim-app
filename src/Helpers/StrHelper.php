@@ -36,9 +36,10 @@ final class StrHelper
         return $value;
     }
 
-    public static function prepareFirstName($value): string
+    public static function prepareUserName($value): string
     {
         $value = self::trim($value);
+        $value = mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
 
         return $value;
     }

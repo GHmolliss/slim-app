@@ -32,7 +32,7 @@ class ConstraintsHelper
         ];
     }
 
-    public static function userFirstName(): array
+    public static function userLastName(): array
     {
         return [
             new NotBlank(),

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\User\Auth;
 
 use App\Domain\ValueObjects\Email;
+use App\Domain\ValueObjects\NumberPositive;
 use App\Domain\ValueObjects\Token;
+use App\Domain\ValueObjects\UserLastName;
 use App\Domain\ValueObjects\UserPassword;
 use App\Entity\User;
 
@@ -22,17 +24,17 @@ final class UserAuthFacade extends UserAuthBuilder
     //     return $this->buildUserAuthManager()->findByToken($token);
     // }
 
-    // public function addNewUser(
-    //     string $firstName,
-    //     string $email,
-    //     string $password,
-    // ): void {
-    //     $this->buildUserAuthManager()->addNewUser(
-    //         $firstName,
-    //         $email,
-    //         $password,
-    //     );
-    // }
+    public function register(
+        UserLastName $lastName,
+        Email $email,
+        UserPassword $password,
+    ): NumberPositive {
+        return $this->buildUserAuthManager()->register(
+            $lastName,
+            $email,
+            $password,
+        );
+    }
 
     public function login(
         Email $email,
