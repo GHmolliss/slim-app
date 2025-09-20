@@ -17,7 +17,7 @@ class User
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(name: "id", type: "integer", options: ["unsigned" => true])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: UserRole::class)]
