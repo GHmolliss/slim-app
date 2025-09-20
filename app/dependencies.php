@@ -41,7 +41,7 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         Twig::class => function () {
             $twig = Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
-            $twig->getEnvironment()->addGlobal('csrf_token', SessionHelper::getCsrfToken());
+            $twig->getEnvironment()->addGlobal('csrfToken', SessionHelper::getCsrfToken());
             $twig->getEnvironment()->addGlobal('appUrl', EnvHelper::getAppUrlDs());
 
             return $twig;
