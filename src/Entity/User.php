@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Helpers\StrHelper;
+use App\Domain\ValueObjects\Email;
+use App\Domain\ValueObjects\UserLastName;
+use App\Domain\ValueObjects\UserPassword;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -50,18 +52,14 @@ class User
 
     public function __construct(
         UserRole $role,
-        string $lastName,
-        string $email,
-        string $password,
+        UserLastName $lastName,
+        Email $email,
+        UserPassword $password,
     ) {
-        $lastName = StrHelper::prepareUserName($lastName);
-        $email = StrHelper::prepareEmail($email);
-        $password = StrHelper::preparePassword($password);
-
         $this->role = $role;
-        $this->lastName = $lastName;
-        $this->email = $email;
-        $this->password = $password;
+        $this->lastName = $lastName->get();
+        $this->email = $email->get();
+        $this->password = $password->get();
     }
 
     public function getId(): ?int
