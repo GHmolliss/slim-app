@@ -25,6 +25,12 @@ php composer.phar install
 http://localhost/ - website  
 http://localhost:8080/index.php - phpMyAdmin  
 
+### Tests
+Run
+```bash
+codecept run
+```
+
 # Slim Framework 4 Skeleton Application
 
 [![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
