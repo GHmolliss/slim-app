@@ -10,3 +10,7 @@ actor_suffix: Tester
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+    suites:
+      unit:
+        path: tests/Unit
+        actor: UnitTester
