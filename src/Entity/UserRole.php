@@ -11,6 +11,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 #[ORM\Table(name: "user_roles")]
 class UserRole
 {
+    public const ADMIN_ID = 1;
+    public const USER_ID = 2;
+
     use TimestampableEntity;
 
     #[ORM\Id]
