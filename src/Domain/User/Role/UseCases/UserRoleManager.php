@@ -15,7 +15,7 @@ final class UserRoleManager
         private UserRoleRepository $userRoleRepository,
     ) {}
 
-    public function getRoleForUser(): UserRole
+    public function getForUser(): UserRole
     {
         return $this->userRoleRepository->find(UserRole::USER_ID);
     }

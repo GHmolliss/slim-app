@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Domain\Contact\Owner\ContactOwnerFacade;
 use App\Domain\User\Auth\UserAuthFacade;
+use App\Domain\User\Role\UserRoleFacade;
 use App\Helpers\PathHelper;
 use App\Helpers\SessionHelper;
 use App\Interface\API\Auth\Login\ApiLoginInterface;
@@ -53,9 +55,27 @@ return function (ContainerBuilder $containerBuilder) {
     ]);
 
     $containerBuilder->addDefinitions([
+        UserRoleFacade::class => function (ContainerInterface $c) {
+            return new UserRoleFacade(
+                $c->get(EntityManagerInterface::class)
+            );
+        },
+    ]);
+
+    $containerBuilder->addDefinitions([
+        ContactOwnerFacade::class => function (ContainerInterface $c) {
+            return new ContactOwnerFacade(
+                $c->get(EntityManagerInterface::class),
+            );
+        },
+    ]);
+
+    $containerBuilder->addDefinitions([
         UserAuthFacade::class => function (ContainerInterface $c) {
             return new UserAuthFacade(
                 $c->get(EntityManagerInterface::class),
+                $c->get(UserRoleFacade::class),
+                $c->get(ContactOwnerFacade::class),
             );
         },
     ]);

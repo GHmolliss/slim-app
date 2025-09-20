@@ -31,14 +31,14 @@ final class UserAuthManagerException extends DomainException
         );
     }
 
-    // public static function emailDuplicate(): self
-    // {
-    //     return new self(
-    //         'Пользователь уже был создан ранее. Для входа перейдите на страницу <a href="' . PathHelper::getPublicDirectory() . 'login">авторизации</a>',
-    //         self::EMAIL_DUPLICATE,
-    //         StatusCodeInterface::STATUS_BAD_REQUEST,
-    //     );
-    // }
+    public static function emailDuplicate(): self
+    {
+        return new self(
+            'Пользователь уже был создан ранее. Для входа перейдите на страницу <a href="' . PathHelper::getAppUrlDs() . 'login">авторизации</a>',
+            self::EMAIL_DUPLICATE,
+            StatusCodeInterface::STATUS_BAD_REQUEST,
+        );
+    }
 
     public static function loginError(): self
     {

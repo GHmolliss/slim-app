@@ -8,6 +8,11 @@ use LogicException;
 
 final class EnvHelper
 {
+    public static function getAppUrlDs(): string
+    {
+        return self::getByKey('APP_URL');
+    }
+
     public static function isDev(): bool
     {
         $value = self::getByKey('APP_ENV');

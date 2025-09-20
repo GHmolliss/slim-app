@@ -6,29 +6,13 @@ namespace App\Helpers;
 
 final class PathHelper
 {
-    // /**
-    //  * Path https://code-base.ru/
-    //  */
-    // public static function getPublicDirectory(): string
-    // {
-    //     return EnvHelper::getAppUrlDs();
-    // }
-
-    // /**
-    //  * Path https://code-base.ru/images/
-    //  */
-    // public static function getPublicImagesDirectory(): string
-    // {
-    //     return self::getPublicDirectory() . 'images' . DIRECTORY_SEPARATOR;
-    // }
-
-    // /**
-    //  * Path https://code-base.ru/build/
-    //  */
-    // public static function getPublicBuildDirectory(): string
-    // {
-    //     return self::getPublicDirectory() . 'build' . DIRECTORY_SEPARATOR;
-    // }
+    /**
+     * Path https://localhost/
+     */
+    public static function getAppUrlDs(): string
+    {
+        return EnvHelper::getAppUrlDs();
+    }
 
     // /**
     //  * Path https://code-base.ru/monaco-editor@0.52.0/loader.js

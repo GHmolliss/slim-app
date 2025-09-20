@@ -18,9 +18,10 @@ class User
     use TimestampableEntity;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer", options: ["unsigned" => true])]
+    #[ORM\Column(name: "id", type: 'integer', options: ['unsigned' => true, 'comment' => 'Id'])]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
+
 
     #[ORM\ManyToOne(targetEntity: UserRole::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "id", nullable: false)]

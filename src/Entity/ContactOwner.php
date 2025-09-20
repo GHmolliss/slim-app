@@ -7,14 +7,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\Doctrine\UserRoleRepository')]
-#[ORM\Table(name: "user_roles")]
-class UserRole
+#[ORM\Entity(repositoryClass: 'App\Repository\Doctrine\ContactOwnerRepository')]
+#[ORM\Table(name: 'contacts')]
+class ContactOwner
 {
-    public const ADMIN_ID = 1;
-    public const USER_ID = 2;
-
     use TimestampableEntity;
+
+    public const USER_ID = 1;
 
     #[ORM\Id]
     #[ORM\Column(name: "id", type: 'integer', options: ['unsigned' => true, 'comment' => 'Id'])]

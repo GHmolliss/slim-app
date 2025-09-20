@@ -1,4 +1,8 @@
-DROP TABLE IF EXISTS `user_contacts`;
+DROP TABLE IF EXISTS `contacts`;
+
+
+
+DROP TABLE IF EXISTS `contact_owners`;
 
 
 
@@ -85,17 +89,36 @@ VALUES
 
 
 
-CREATE TABLE `user_contacts` (
+CREATE TABLE `contact_owners` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
-    `user_id` int(10) UNSIGNED NOT NULL COMMENT 'User Id',
+    `name` varchar(25) NOT NULL COMMENT 'Владелец контакта',
+    `created` datetime NOT NULL COMMENT 'Дата создания',
+    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Контакты - Типы владельцев контакта';
+
+
+
+INSERT INTO
+    `contact_owners` (`id`, `name`, `created`, `updated`)
+VALUES
+    (1, 'user', NOW(), NOW());
+
+
+
+CREATE TABLE `contacts` (
+    `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
+    `owner_id` int(10) UNSIGNED NOT NULL COMMENT 'Owner Id',
+    `source_id` int(10) UNSIGNED NOT NULL COMMENT 'Source Id',
     `type_id` int(10) UNSIGNED NOT NULL COMMENT 'Type Id',
     `value` varchar(255) NOT NULL COMMENT 'Значение',
     `created` datetime NOT NULL COMMENT 'Дата создания',
     `updated` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `UserIdAndTypeIdAndValue` (`user_id`, `type_id`, `value`) USING BTREE,
+    UNIQUE KEY `ukContact` (`owner_id`, `source_id`, `type_id`, `value`) USING BTREE,
+    KEY `ixOwnerId` (`owner_id`),
+    KEY `ixSourceId` (`source_id`),
     KEY `ixTypeId` (`type_id`),
-    KEY `ixUserId` (`user_id`),
     KEY `ixValue` (`value`),
-    CONSTRAINT `fkUserContact` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи - Контакты';
+    CONSTRAINT `fkContactOwner` FOREIGN KEY (`owner_id`) REFERENCES `contact_owners` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Контакты';

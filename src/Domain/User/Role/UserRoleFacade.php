@@ -8,8 +8,8 @@ use App\Entity\UserRole;
 
 final class UserRoleFacade extends UserRoleBuilder
 {
-    public function getRoleForUser(): UserRole
+    public function getForUser(): UserRole
     {
-        return $this->buildUserRoleManager()->getRoleForUser();
+        return $this->buildUserRoleManager()->getForUser();
     }
 }

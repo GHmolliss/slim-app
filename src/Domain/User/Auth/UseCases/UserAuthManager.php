@@ -4,33 +4,28 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Auth\UseCases;
 
-use App\Domain\Mail\Task\MailTaskFacade;
-use App\Domain\Pages\Getter\CourseProgressCollection;
-use App\Domain\Telegram\TelegramFacade;
-use App\Domain\Telegram\ValueObjects\Message;
+use App\Domain\Contact\Owner\ContactOwnerFacade;
 use App\Domain\User\Auth\Exceptions\UserAuthManagerException;
-use App\Domain\User\Group\UserGroupFacade;
+use App\Domain\User\Role\UserRoleFacade;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\NumberPositive;
 use App\Domain\ValueObjects\Token;
 use App\Domain\ValueObjects\UserLastName;
 use App\Domain\ValueObjects\UserPassword;
+use App\Entity\Contact;
 use App\Entity\User;
-use App\Entity\UserContact;
-use App\Entity\UserProgress;
 use App\Helpers\CookieHelper;
 use App\Helpers\HashHelper;
 use App\Helpers\JwtHelper;
-use App\Helpers\StrHelper;
 use App\Repository\Doctrine\UserRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class UserAuthManager
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
+        private UserRoleFacade $userRoleFacade,
+        private ContactOwnerFacade $contactOwnerFacade,
         private UserRepository $userRepository,
     ) {}
 
@@ -74,52 +69,44 @@ final class UserAuthManager
         Email $email,
         UserPassword $password,
     ): NumberPositive {
-        // $group = $this->userGroupFacade->getUser();
+        $user = $this->userRepository->findOneBy(['email' => $email]);
 
-        // $user = $this->userRepository->findOneBy(['email' => $email]);
+        if ($user && $user->getActiveEmail() !== null) {
+            throw UserAuthManagerException::emailNotActive($user->getActiveEmail());
+        }
 
-        // if ($user) {
-        //     if ($user->getActiveEmail() !== null) {
-        //         throw UserAuthManagerException::emailNotActive($user->getActiveEmail());
-        //     }
+        if ($user) {
+            throw UserAuthManagerException::emailDuplicate();
+        }
 
-        //     throw UserAuthManagerException::emailDuplicate();
-        // }
+        $role = $this->userRoleFacade->getForUser();
 
-        // $user = User::create(
-        //     $group,
-        //     $lastName,
-        //     $email,
-        //     $password,
-        // );
+        $user = new User(
+            $role,
+            $lastName,
+            $email,
+            $password,
+        );
 
-        // $userProgress = new UserProgress($user);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
-        // $this->entityManager->persist($user);
-        // $this->entityManager->persist($userProgress);
-        // $this->entityManager->flush();
+        $userId = new NumberPositive($user->getId(), 'userId');
 
-        // $token = HashHelper::userTokenEncode((string) $user->getId());
-        // $user->setToken($token);
+        $token = HashHelper::userTokenEncode((string) $user->getId());
+        $user->setToken($token);
 
-        // $contact = new UserContact(
-        //     $user,
-        //     UserContact::TYPE_EMAIL_ID,
-        //     $email,
-        // );
+        $owner = $this->contactOwnerFacade->getForUser();
 
-        // $this->entityManager->persist($contact);
-        // $this->entityManager->flush();
+        $contact = new Contact(
+            $owner,
+            $userId,
+            new NumberPositive(Contact::TYPE_EMAIL_ID, 'typeId'),
+            $email->get(),
+        );
 
-        // $this->mailTaskFacade->userRegister(
-        //     new NumberPositive('userId', $user->getId()),
-        // );
-
-        // $this->telegramFacade->sendAdminUserAdminMessage(
-        //     new Message('message', "[UserAdd]: id={$user->getId()} name={$user->getFirstName()} email={$user->getEmail()}"),
-        // );
-
-        $userId = new NumberPositive(1, 'userId');
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
 
         return $userId;
     }
