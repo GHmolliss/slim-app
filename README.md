@@ -6,6 +6,7 @@ Installed and configured:
 - Symfony Doctrine
 - Symfony Console
 - API
+- Codeception
 
 ## Setup
 ### .env File
