@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\ValueObjects;
 
 use App\Domain\DomainException\DomainException;
-use App\Domain\ValueObjects\NumberPositive;
+use App\Domain\ValueObjects\NumberPositiveNullable;
 use Codeception\Test\Unit;
 use Tests\Support\UnitTester;
 
-class NumberPositiveTest extends Unit
+class NumberPositiveNullableTest extends Unit
 {
     protected UnitTester $tester;
 
-    public function testPositiveSuccess(): void
+    /**
+     * @dataProvider validDataProvider
+     */
+    public function testValid($value): void
     {
-        $value = 1;
-
-        $id = new NumberPositive($value, 'id');
+        $id = new NumberPositiveNullable($value, 'id');
 
         $this->tester->assertSame($value, $id->get());
     }
@@ -29,7 +30,15 @@ class NumberPositiveTest extends Unit
     {
         $this->expectException(DomainException::class);
 
-        new NumberPositive($value, 'id');
+        new NumberPositiveNullable($value, 'id');
+    }
+
+    public function validDataProvider(): array
+    {
+        return [
+            'null' => [null],
+            'positive number' => [1],
+        ];
     }
 
     public function invalidDataProvider(): array
@@ -38,7 +47,6 @@ class NumberPositiveTest extends Unit
             'string empty' => [''],
             'string' => ['string'],
             'string number' => ['1'],
-            'null' => [null],
             'array' => [[]],
             'negative number' => [-1],
             'float' => [1.1],
