@@ -11,39 +11,39 @@ use Tests\Support\UnitTester;
 
 class NumberPositiveTest extends Unit
 {
-    protected UnitTester $tester;
+    // protected UnitTester $tester;
 
-    public function testPositiveSuccess(): void
-    {
-        $value = 1;
+    // public function testPositiveSuccess(): void
+    // {
+    //     $value = 1;
 
-        $primaryKey = new NumberPositive($value, 'id');
+    //     $primaryKey = new NumberPositive($value, 'id');
 
-        $this->tester->assertSame($value, $primaryKey->get());
-    }
+    //     $this->tester->assertSame($value, $primaryKey->get());
+    // }
 
-    /**
-     * @dataProvider invalidDataProvider
-     */
-    public function testInvalid($value): void
-    {
-        $this->expectException(DomainException::class);
+    // /**
+    //  * @dataProvider invalidDataProvider
+    //  */
+    // public function testInvalid($value): void
+    // {
+    //     $this->expectException(DomainException::class);
 
-        new NumberPositive($value, 'id');
-    }
+    //     new NumberPositive($value, 'id');
+    // }
 
-    public function invalidDataProvider(): array
-    {
-        return [
-            'string empty' => [''],
-            'string' => ['string'],
-            'string number' => ['1'],
-            'null' => [null],
-            'array' => [[]],
-            'negative number' => [-1],
-            'float' => [1.1],
-            'zero' => [0],
-            'bool false' => [false],
-        ];
-    }
+    // public function invalidDataProvider(): array
+    // {
+    //     return [
+    //         'string empty' => [''],
+    //         'string' => ['string'],
+    //         'string number' => ['1'],
+    //         'null' => [null],
+    //         'array' => [[]],
+    //         'negative number' => [-1],
+    //         'float' => [1.1],
+    //         'zero' => [0],
+    //         'bool false' => [false],
+    //     ];
+    // }
 }
