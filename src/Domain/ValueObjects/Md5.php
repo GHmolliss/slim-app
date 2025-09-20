@@ -38,9 +38,7 @@ class Md5 extends ValidateValueObject
         return new Collection([
             $this->key => [
                 new NotBlank(),
-                new Regex([
-                    'pattern' => "/^[a-f0-9]{32}$/i",
-                ]),
+                new Regex(pattern: "/^[a-f0-9]{32}$/i"),
             ],
         ]);
     }

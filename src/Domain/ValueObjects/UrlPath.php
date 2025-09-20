@@ -33,7 +33,7 @@ final class UrlPath extends ValidateValueObject
             $this->key => [
                 new NotBlank(),
                 new Type('string'),
-                new Url(),
+                new Url(requireTld: true),
             ],
         ]);
     }

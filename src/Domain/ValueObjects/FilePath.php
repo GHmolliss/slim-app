@@ -58,7 +58,7 @@ final class FilePath extends ValidateValueObject
             $this->key => [
                 new NotBlank(),
                 new Type('string'),
-                new Regex('/^(\/|[a-zA-Z]:\\\\)/'),
+                new Regex(pattern: '/^(\/|[a-zA-Z]:\\\\)/'),
                 new Callback([$this, 'validatePath']),
             ],
         ]);

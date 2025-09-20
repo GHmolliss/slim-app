@@ -62,6 +62,23 @@ final class PathHelper
         return self::getRootPath() . 'vendor' . DIRECTORY_SEPARATOR;
     }
 
+    /**
+     * Path /tests/
+     */
+    public static function getTestsPath(): string
+    {
+        return self::getRootPath() . 'tests' . DIRECTORY_SEPARATOR;
+    }
+
+    public static function getTestsSupportDataPath(): string
+    {
+        return self::getTestsPath()
+            . 'Support'
+            . DIRECTORY_SEPARATOR
+            . 'Data'
+            . DIRECTORY_SEPARATOR;
+    }
+
     // /**
     //  * Path /app/
     //  */
