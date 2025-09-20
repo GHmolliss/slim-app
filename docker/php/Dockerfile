@@ -33,3 +33,5 @@ WORKDIR /var/www/html
 
 # Копируем файлы проекта в контейнер
 COPY . /var/www/html
+
+RUN echo 'alias codecept="php vendor/bin/codecept"' >> ~/.bashrc
