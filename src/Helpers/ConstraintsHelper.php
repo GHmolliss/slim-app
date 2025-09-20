@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Url;
 
 class ConstraintsHelper
 {
@@ -68,5 +69,22 @@ class ConstraintsHelper
             new Length(min: 5, max: 50),
             new PasswordStrength(minScore: PasswordStrength::STRENGTH_WEAK),
         ];
+    }
+
+    public static function md5(): array
+    {
+        return [
+            new NotBlank(),
+            new Regex(pattern: "/^[a-f0-9]{32}$/i"),
+        ];
+    }
+
+    public static function urlPath(): array
+    {
+        return [
+                new NotBlank(),
+                new Type('string'),
+                new Url(requireTld: true),
+            ];
     }
 }

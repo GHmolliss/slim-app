@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObjects;
 
+use App\Helpers\ConstraintsHelper;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
@@ -30,11 +31,7 @@ final class UrlPath extends ValidateValueObject
     protected function getConstraints(): Collection
     {
         return new Collection([
-            $this->key => [
-                new NotBlank(),
-                new Type('string'),
-                new Url(requireTld: true),
-            ],
+            $this->key => ConstraintsHelper::urlPath(),
         ]);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObjects;
 
+use App\Helpers\ConstraintsHelper;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -36,10 +37,7 @@ class Md5 extends ValidateValueObject
     protected function getConstraints(): Collection
     {
         return new Collection([
-            $this->key => [
-                new NotBlank(),
-                new Regex(pattern: "/^[a-f0-9]{32}$/i"),
-            ],
+            $this->key => ConstraintsHelper::md5(),
         ]);
     }
 }
