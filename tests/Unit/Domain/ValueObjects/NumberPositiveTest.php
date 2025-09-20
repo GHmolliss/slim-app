@@ -4,27 +4,20 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\ValueObjects;
 
-use App\Domain\DomainException;
+use App\Domain\DomainException\DomainException;
 use App\Domain\ValueObjects\NumberPositive;
+use Codeception\Test\Unit;
 use Tests\Support\UnitTester;
 
-class NumberPositiveTest extends \Codeception\Test\Unit
+class NumberPositiveTest extends Unit
 {
     protected UnitTester $tester;
-
-    protected function _after()
-    {
-    }
-
-    protected function _before()
-    {
-    }
 
     public function testPositiveSuccess(): void
     {
         $value = 1;
 
-        $primaryKey = new NumberPositive('id', $value);
+        $primaryKey = new NumberPositive($value, 'id');
 
         $this->tester->assertSame($value, $primaryKey->get());
     }
@@ -36,7 +29,7 @@ class NumberPositiveTest extends \Codeception\Test\Unit
     {
         $this->expectException(DomainException::class);
 
-        new NumberPositive('id', $value);
+        new NumberPositive($value, 'id');
     }
 
     public function invalidDataProvider(): array
