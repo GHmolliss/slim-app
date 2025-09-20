@@ -6,6 +6,7 @@ use App\Application\Settings\SettingsInterface;
 use App\Domain\Contact\Owner\ContactOwnerFacade;
 use App\Domain\User\Auth\UserAuthFacade;
 use App\Domain\User\Role\UserRoleFacade;
+use App\Helpers\EnvHelper;
 use App\Helpers\PathHelper;
 use App\Helpers\SessionHelper;
 use App\Interface\API\Auth\Login\ApiLoginInterface;
@@ -41,6 +42,7 @@ return function (ContainerBuilder $containerBuilder) {
         Twig::class => function () {
             $twig = Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
             $twig->getEnvironment()->addGlobal('csrf_token', SessionHelper::getCsrfToken());
+            $twig->getEnvironment()->addGlobal('appUrl', EnvHelper::getAppUrlDs());
 
             return $twig;
         },
