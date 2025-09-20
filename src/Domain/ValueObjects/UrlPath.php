@@ -6,9 +6,6 @@ namespace App\Domain\ValueObjects;
 
 use App\Helpers\ConstraintsHelper;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Type;
-use Symfony\Component\Validator\Constraints\Url;
 
 final class UrlPath extends ValidateValueObject
 {
