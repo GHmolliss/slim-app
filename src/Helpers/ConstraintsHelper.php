@@ -23,6 +23,14 @@ class ConstraintsHelper
         ];
     }
 
+    public static function numberPositiveNullable(): array
+    {
+        return [
+            new Type('int'),
+            new Positive(),
+        ];
+    }
+
     public static function authToken(): array
     {
         return [

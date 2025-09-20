@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObjects;
 
+use App\Helpers\ConstraintsHelper;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Positive;
-use Symfony\Component\Validator\Constraints\Type;
 
 class NumberPositiveNullable extends ValidateValueObject
 {
@@ -36,10 +35,7 @@ class NumberPositiveNullable extends ValidateValueObject
     protected function getConstraints(): Collection
     {
         return new Collection([
-            $this->key => [
-                new Type('int'),
-                new Positive(),
-            ],
+            $this->key => ConstraintsHelper::numberPositiveNullable(),
         ]);
     }
 }
