@@ -149,8 +149,6 @@ final class UserAuthManager
         ];
         $token = JwtHelper::generateToken($payload);
 
-        $user->setUpdated();
-
         $this->entityManager->flush();
 
         return $token;

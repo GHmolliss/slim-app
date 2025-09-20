@@ -13,7 +13,7 @@ final class HashHelper
      **/
     public static function userTokenEncode(string $userId): string
     {
-        $key = hash('sha256', $_ENV['SALT']);
+        $key = hash('sha256', EnvHelper::getAppSecret());
 
         $ivLength = openssl_cipher_iv_length(self::CIPHER_METHOD);
         $iv = openssl_random_pseudo_bytes($ivLength);
@@ -29,7 +29,7 @@ final class HashHelper
      **/
     public static function userTokenDecode(string $token): ?string
     {
-        $key = hash('sha256', $_ENV['SALT']);
+        $key = hash('sha256', EnvHelper::getAppSecret());
 
         list($encrypted_data, $iv) = explode('::', base64_decode($token), 2);
 

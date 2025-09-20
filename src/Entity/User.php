@@ -4,31 +4,39 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Helpers\StrHelper;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\Doctrine\UserRepository')]
 #[ORM\Table(name: "users")]
 class User
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(name: "first_name", type: "string")]
-    private string $firstName;
+    #[ORM\ManyToOne(targetEntity: UserRole::class)]
+    #[ORM\JoinColumn(name: "role_id", referencedColumnName: "id", nullable: false)]
+    private UserRole $role;
 
-    #[ORM\Column(name: "last_name", type: "string", nullable: true)]
-    private ?string $lastName = null;
+    #[ORM\Column(name: "first_name", type: "string", nullable: true, length: 20)]
+    private ?string $firstName = null;
 
-    #[ORM\Column(name: "middle_name", type: "string", nullable: true)]
+    #[ORM\Column(name: "last_name", type: "string", nullable: true, length: 20)]
+    private string $lastName;
+
+    #[ORM\Column(name: "middle_name", type: "string", nullable: true, length: 20)]
     private ?string $middleName = null;
 
-    #[ORM\Column(name: "email", type: "string", nullable: true)]
-    private ?string $email = null;
+    #[ORM\Column(name: "email", type: "string", length: 50)]
+    private string $email;
 
-    #[ORM\Column(name: "password", type: "string", nullable: true)]
+    #[ORM\Column(name: "password", type: "string", length: 60)]
     private string $password;
 
     #[ORM\Column(name: "token", type: "string", length: 56, nullable: true)]
@@ -40,11 +48,21 @@ class User
     #[ORM\Column(name: "active_password", type: "datetime", nullable: true)]
     private ?DateTime $activePassword = null;
 
-    #[ORM\Column(name: "created", type: "datetime")]
-    private DateTime $created;
+    public function __construct(
+        UserRole $role,
+        string $lastName,
+        string $email,
+        string $password,
+    ) {
+        $lastName = StrHelper::prepareUserName($lastName);
+        $email = StrHelper::prepareEmail($email);
+        $password = StrHelper::preparePassword($password);
 
-    #[ORM\Column(name: "updated", type: "datetime")]
-    private DateTime $updated;
+        $this->role = $role;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->password = $password;
+    }
 
     public function getId(): ?int
     {
@@ -96,20 +114,5 @@ class User
     public function getActivePassword(): ?DateTime
     {
         return $this->activePassword;
-    }
-
-    public function getCreated(): DateTime
-    {
-        return $this->created;
-    }
-
-    public function getUpdated(): DateTime
-    {
-        return $this->updated;
-    }
-
-    public function setUpdated(): void
-    {
-        $this->updated = new DateTime();
     }
 }

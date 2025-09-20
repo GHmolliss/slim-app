@@ -13,28 +13,30 @@ DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
     `name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Name',
+    `created` datetime NOT NULL COMMENT 'Дата создания',
+    `updated` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи - Роли';
 
 
 
 INSERT INTO
-    `user_roles` (`id`, `name`)
+    `user_roles` (`id`, `name`, `created`, `updated`)
 VALUES
-    (1, 'admin'),
-    (2, 'user');
+    (1, 'admin', NOW(), NOW()),
+    (2, 'user', NOW(), NOW());
 
 
 
 CREATE TABLE `users` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
     `role_id` int(10) UNSIGNED NOT NULL COMMENT 'Role Id',
-    `first_name` varchar(20) NOT NULL COMMENT 'Фамилия',
+    `first_name` varchar(20) DEFAULT NULL COMMENT 'Фамилия',
     `last_name` varchar(20) NOT NULL COMMENT 'Имя',
     `middle_name` varchar(20) DEFAULT NULL COMMENT 'Отчество',
     `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Email',
     `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Password',
-    `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Token',
+    `token` varchar(56) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Token',
     `active_email` datetime DEFAULT NULL COMMENT 'Active email',
     `active_password` datetime DEFAULT NULL COMMENT 'Active password',
     `created` datetime NOT NULL COMMENT 'Дата создания',
@@ -74,7 +76,7 @@ VALUES
         'Иванович',
         'user@example.com',
         '$2y$12$E7YZv8u8r3lAfIfR6PvIV.RQFyljrf0YFotBLNymIcMC1XnBshanq',
-        NULL,
+        'VEVVNE1zMDlid2RwQWdIWTRPaW9EUT09Ojo2+U+kFusUaVbGrd40KLir',
         NULL,
         NULL,
         NOW(),

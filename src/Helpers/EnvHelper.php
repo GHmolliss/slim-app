@@ -22,6 +22,11 @@ final class EnvHelper
         return ($value === 'production') ? true : false;
     }
 
+    public static function getAppSecret(): string
+    {
+        return self::getByKey('APP_SECRET');
+    }
+
     public static function getJwtSecret(): string
     {
         return self::getByKey('JWT_SECRET');
