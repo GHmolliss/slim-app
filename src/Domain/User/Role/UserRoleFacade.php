@@ -6,7 +6,7 @@ namespace App\Domain\User\Role;
 
 use App\Entity\UserRole;
 
-final class UserRoleFacade extends UserRoleBuilder
+class UserRoleFacade extends UserRoleBuilder
 {
     public function getForUser(): UserRole
     {

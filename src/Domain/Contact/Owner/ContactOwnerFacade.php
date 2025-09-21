@@ -6,7 +6,7 @@ namespace App\Domain\Contact\Owner;
 
 use App\Entity\ContactOwner;
 
-final class ContactOwnerFacade extends ContactOwnerBuilder
+class ContactOwnerFacade extends ContactOwnerBuilder
 {
     public function getForUser(): ContactOwner
     {

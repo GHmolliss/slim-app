@@ -11,7 +11,7 @@ use App\Domain\ValueObjects\UserLastName;
 use App\Domain\ValueObjects\UserPassword;
 use App\Entity\User;
 
-final class UserAuthFacade extends UserAuthBuilder
+class UserAuthFacade extends UserAuthBuilder
 {
     // public function find(): ?User
     // {
