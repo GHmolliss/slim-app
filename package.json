@@ -1,0 +1,17 @@
+{
+  "name": "slim-app",
+  "version": "1.0.0",
+  "description": "A ready-made solution for a quick project start.   Installed and configured: - Symfony Twig - Symfony Doctrine - Symfony Console - API - Codeception",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}
