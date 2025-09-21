@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Domain\User\Auth\Login;
 
+use App\Domain\DomainException\DomainException;
 use App\Domain\User\Auth\UserAuthFacade;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\UserPassword;
@@ -12,23 +13,24 @@ use Tests\FunctionalTester;
 
 class UserAuthFacadeLoginTest extends \Codeception\Test\Unit
 {
-    /** @var UserAuthFacade */
-    private $authFacade;
+    private UserAuthFacade $authFacade;
 
     protected function _before()
     {
-        // Получаем фасад из DI-контейнера Slim
-        $app = \createSlimApp();
+        $app = createSlimApp();
+
         $container = $app->getContainer();
-        $this->authFacade = $container->get(\App\Domain\User\Auth\UserAuthFacade::class);
+
+        $this->authFacade = $container->get(UserAuthFacade::class);
     }
 
     public function testLoginSuccess()
     {
         $email = new Email('user@example.com');
-        $password = new UserPassword('8GVbh&6I7silgDXN'); // пароль должен совпадать с хешем в дампе
+        $password = new UserPassword('8GVbh&6I7silgDXN');
 
         $token = $this->authFacade->login($email, $password);
+
         $this->assertIsString($token);
         $this->assertNotEmpty($token);
     }
@@ -38,7 +40,8 @@ class UserAuthFacadeLoginTest extends \Codeception\Test\Unit
         $email = new Email('user@example.com');
         $password = new UserPassword('WrongPassword');
 
-        $this->expectException(\App\Domain\DomainException\DomainException::class);
+        $this->expectException(DomainException::class);
+
         $this->authFacade->login($email, $password);
     }
 
@@ -47,7 +50,8 @@ class UserAuthFacadeLoginTest extends \Codeception\Test\Unit
         $email = new Email('notfound@example.com');
         $password = new UserPassword('Password123!');
 
-        $this->expectException(\App\Domain\DomainException\DomainException::class);
+        $this->expectException(DomainException::class);
+
         $this->authFacade->login($email, $password);
     }
 }
