@@ -8,8 +8,6 @@ use App\Domain\DomainException\DomainException;
 use App\Domain\User\Auth\UserAuthFacade;
 use App\Domain\ValueObjects\Email;
 use App\Domain\ValueObjects\UserPassword;
-use Codeception\Util\Fixtures;
-use Tests\FunctionalTester;
 
 class UserAuthFacadeLoginTest extends \Codeception\Test\Unit
 {
