@@ -40,7 +40,7 @@ return function (ContainerBuilder $containerBuilder) {
 
     $containerBuilder->addDefinitions([
         Twig::class => function () {
-            $twig = Twig::create(PathHelper::getTemplatesTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
+            $twig = Twig::create(PathHelper::getViewsTwigPath(), ['cache' => PathHelper::getCacheTwigPath()]);
             $twig->getEnvironment()->addGlobal('csrfToken', SessionHelper::getCsrfToken());
             $twig->getEnvironment()->addGlobal('appUrl', EnvHelper::getAppUrlDs());
 

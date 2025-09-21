@@ -176,19 +176,19 @@ final class PathHelper
     // }
 
     /**
-     * Path /templates/
+     * Path /views/
      */
-    public static function getTemplatesPath(): string
+    public static function getViewsPath(): string
     {
-        return self::getRootPath() . 'templates' . DIRECTORY_SEPARATOR;
+        return self::getRootPath() . 'views' . DIRECTORY_SEPARATOR;
     }
 
     /**
-     * Path /templates/twig/
+     * Path /views/twig/
      */
-    public static function getTemplatesTwigPath(): string
+    public static function getViewsTwigPath(): string
     {
-        return self::getTemplatesPath() . 'twig' . DIRECTORY_SEPARATOR;
+        return self::getViewsPath() . 'twig' . DIRECTORY_SEPARATOR;
     }
 
     /**
