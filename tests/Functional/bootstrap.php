@@ -32,7 +32,7 @@ function createSlimApp(): App
     $routes($app);
 
     // Register API routes
-    $routes = require __DIR__ . '/../app/routes_api.php';
+    $routes = require __DIR__ . '/../../app/routes_api.php';
     $routes($app);
 
     return $app;

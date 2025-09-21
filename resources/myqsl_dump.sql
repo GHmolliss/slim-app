@@ -17,15 +17,15 @@ DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
     `name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'Name',
-    `created` datetime NOT NULL COMMENT 'Дата создания',
-    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    `createdAt` datetime NOT NULL COMMENT 'Дата создания',
+    `updatedAt` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Пользователи - Роли';
 
 
 
 INSERT INTO
-    `user_roles` (`id`, `name`, `created`, `updated`)
+    `user_roles` (`id`, `name`, `createdAt`, `updatedAt`)
 VALUES
     (1, 'admin', NOW(), NOW()),
     (2, 'user', NOW(), NOW());
@@ -43,8 +43,8 @@ CREATE TABLE `users` (
     `token` varchar(56) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Token',
     `active_email` datetime DEFAULT NULL COMMENT 'Active email',
     `active_password` datetime DEFAULT NULL COMMENT 'Active password',
-    `created` datetime NOT NULL COMMENT 'Дата создания',
-    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    `createdAt` datetime NOT NULL COMMENT 'Дата создания',
+    `updatedAt` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`),
     UNIQUE KEY `ukEmail` (`email`),
     UNIQUE KEY `ukToken` (`token`),
@@ -68,8 +68,8 @@ INSERT INTO
         `token`,
         `active_email`,
         `active_password`,
-        `created`,
-        `updated`
+    `createdAt`,
+    `updatedAt`
     )
 VALUES
     (
@@ -92,15 +92,15 @@ VALUES
 CREATE TABLE `contact_owners` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id',
     `name` varchar(25) NOT NULL COMMENT 'Владелец контакта',
-    `created` datetime NOT NULL COMMENT 'Дата создания',
-    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    `createdAt` datetime NOT NULL COMMENT 'Дата создания',
+    `updatedAt` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'Контакты - Типы владельцев контакта';
 
 
 
 INSERT INTO
-    `contact_owners` (`id`, `name`, `created`, `updated`)
+    `contact_owners` (`id`, `name`, `createdAt`, `updatedAt`)
 VALUES
     (1, 'user', NOW(), NOW());
 
@@ -112,8 +112,8 @@ CREATE TABLE `contacts` (
     `source_id` int(10) UNSIGNED NOT NULL COMMENT 'Source Id',
     `type_id` int(10) UNSIGNED NOT NULL COMMENT 'Type Id',
     `value` varchar(255) NOT NULL COMMENT 'Значение',
-    `created` datetime NOT NULL COMMENT 'Дата создания',
-    `updated` datetime NOT NULL COMMENT 'Дата обновления',
+    `createdAt` datetime NOT NULL COMMENT 'Дата создания',
+    `updatedAt` datetime NOT NULL COMMENT 'Дата обновления',
     PRIMARY KEY (`id`),
     UNIQUE KEY `ukContact` (`owner_id`, `source_id`, `type_id`, `value`) USING BTREE,
     KEY `ixOwnerId` (`owner_id`),

@@ -183,7 +183,7 @@ final class UserAuthManager
 
     //     $dateTime = new DateTime();
 
-    //     $user->setUpdated(new DateTime());
+    //     $user->setUpdatedAt(new DateTime());
     //     $user->setActivePassword($dateTime->modify('+24 hours'));
 
     //     $this->entityManager->flush();
@@ -212,7 +212,7 @@ final class UserAuthManager
     //         throw UserAuthManagerException::passwordResetDuplicate();
     //     }
 
-    //     $user->setUpdated(new DateTime());
+    //     $user->setUpdatedAt(new DateTime());
     //     $user->setPassword($password);
     //     $user->setActivePassword(null);
 
@@ -264,7 +264,7 @@ final class UserAuthManager
     //         foreach ($users as $user) {
     //             $this->symfonyStyle->writeln("<info>userId={$user->getId()}</info>");
 
-    //             $user->setUpdated(new DateTime());
+    //             $user->setUpdatedAt(new DateTime());
     //             $user->setActivePassword(null);
 
     //             $this->symfonyStyle->writeln(' - update activePassword');
