@@ -14,3 +14,24 @@ extensions:
       unit:
         path: tests/Unit
         actor: UnitTester
+      functional:
+        path: tests/Functional
+        actor: FunctionalTester
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=mysql'
+            user: 'root'
+            password: 'root'
+            dump: tests/Support/Data/dump_mysql.sql
+            populate: true
+            cleanup: false
+            initial_queries:
+                - 'CREATE DATABASE IF NOT EXISTS `testdb` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
+                - 'USE `testdb`;'
+                - 'SET NAMES utf8;'
+                - 'SET time_zone = "%APP_TIMEZONE%";'
+params:
+    - .env.test
+settings:
+    bootstrap: bootstrap.php
