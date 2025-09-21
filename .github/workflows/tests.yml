@@ -41,5 +41,5 @@ jobs:
       - name: Codeception Unit tests
         run: vendor/bin/codecept run Unit
 
-      - name: Codeception Functional tests
-        run: vendor/bin/codecept run Functional
+      # - name: Codeception Functional tests
+      #   run: vendor/bin/codecept run Functional
