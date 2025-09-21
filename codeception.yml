@@ -20,7 +20,7 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=mysql'
+            dsn: 'mysql:host=localhost'
             user: 'root'
             password: 'root'
             dump: tests/Support/Data/dump_mysql.sql
