@@ -20,17 +20,16 @@ docker compose exec php bash
 php composer.phar install
 ```
 
+Run Tests
+```bash
+codecept run
+```
+
 `8GVbh&6I7silgDXN` - User password
 
 ### Local launch in browser
 http://localhost/ - website  
 http://localhost:8080/index.php - phpMyAdmin  
-
-### Tests
-Run
-```bash
-codecept run
-```
 
 # Slim Framework 4 Skeleton Application
 
