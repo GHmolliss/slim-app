@@ -26,7 +26,7 @@
         "ext-json": "*",
         "doctrine/annotations": "^2.0",
         "doctrine/dbal": "^4.3",
-        "doctrine/orm": "^3.5",
+        "doctrine/orm": "^3.6",
         "firebase/php-jwt": "^6.11",
         "gedmo/doctrine-extensions": "^3.21",
         "monolog/monolog": "^2.8",
